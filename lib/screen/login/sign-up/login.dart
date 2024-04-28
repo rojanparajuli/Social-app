@@ -1,4 +1,3 @@
-import 'package:chatapp/screen/home/home_screen.dart';
 import 'package:chatapp/screen/login/sign-up/login_dialog.dart';
 import 'package:chatapp/screen/login/sign-up/signup_dialog.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(()=> LoginDialog());
+                  Get.to(()=> const LoginDialog());
                 },
                 child: const Text("Login"),
               ),
