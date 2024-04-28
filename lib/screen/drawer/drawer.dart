@@ -1,8 +1,6 @@
 import 'package:chatapp/screen/home/home_screen.dart';
 import 'package:chatapp/screen/login/sign-up/login.dart';
-import 'package:chatapp/screen/notification/notification.dart';
 import 'package:chatapp/screen/profile/profile_screen.dart';
-import 'package:chatapp/screen/search/search.dart';
 import 'package:chatapp/screen/settings/settings.dart';
 import 'package:flutter/material.dart';
 
@@ -98,8 +96,8 @@ class Homepage extends StatelessWidget {
             const HomePage(),
             Container(),
             Container(),
-            const NotificationPage(),
-            const MyHomePage(),
+            // const NotificationPage(),
+            // const MyHomePage(),
           ])
         ),
       ),
