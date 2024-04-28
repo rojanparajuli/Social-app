@@ -1,114 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+class NotificationController extends GetxController {
+  List<int> deletedIndexes = [];
 
+  void deleteNotification(int index) {
+    deletedIndexes.add(index);
+    Get.snackbar('Notification', 'Notification $index deleted',
+        duration: const Duration(seconds: 2));
+  }
 
+  void dismissNotification(int index) {
+    deletedIndexes.add(index);
+    Get.snackbar('Notification', 'Notification $index dismissed',
+        duration: const Duration(seconds: 2));
+  }
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
-
-  @override
-  _NotificationPageState createState() => _NotificationPageState();
+  bool isNotificationDeleted(int index) {
+    return deletedIndexes.contains(index);
+  }
 }
-  List<String> notifications = [
-    'Notification 1',
-    'Notification 2',
-    'Notification 3',
-    'Notification 4',
-    'Notification 5',
-    'Notification 7',
-    'Notification 8',
-    'Notification 9',
-    'Notification 10',
-    'Notification 11',
-    'Notification 12',
-    'Notification 13',
-    'Notification 14',
-    'Notification 15',
-    'Notification 16',
-    'Notification 17',
-    'Notification 18',
-    'Notification 19',
-    'Notification 20',
-    'Notification 21',
-    'Notification 22',
-    'Notification 23',
-    'Notification 24',
-    'Notification 25',
-  ];
 
-class _NotificationPageState extends State<NotificationPage> {
-
-  List<String> filteredNotifications = [];
-  bool isRead = true;
-
-  @override
-  void initState() {
-    super.initState();
-    filteredNotifications.addAll(notifications);
-  }
-
-  void filterNotifications(String query) {
-    setState(() {
-      filteredNotifications = notifications
-          .where((notification) =>
-              notification.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
-
-  void markAsRead() {
-    setState(() {
-      notifications.clear();
-      filteredNotifications.clear();
-    });
-  }
-
-  void markAsUnread() {
-    setState(() {
-      filteredNotifications.addAll(notifications);
-    });
-  }
+// ignore: use_key_in_widget_constructors
+class NotificationScreen extends StatelessWidget {
+  final NotificationController _notificationController =
+      Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notification Page'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.check),
-            onPressed: isRead ? null : markAsRead,
-          ),
-          IconButton(
-            icon: Icon(Icons.undo),
-            onPressed: isRead ? markAsUnread : null,
-          ),
-        ],
+        title: const Text('Notification'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: filterNotifications,
-              decoration: InputDecoration(
-                labelText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+      body: RefreshIndicator(
+        color: Colors.green,
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 5));
+        },
+        child: ListView.builder(
+          itemCount: 1001,
+          itemBuilder: (context, index) {
+            if (_notificationController.isNotificationDeleted(index)) {
+              return Container();
+            }
+            return Dismissible(
+              key: UniqueKey(),
+              direction: DismissDirection.horizontal,
+              background: Container(
+                color: Colors.lightGreen,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(left: 20.0),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredNotifications.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(filteredNotifications[index]),
-                );
+              secondaryBackground: Container(
+                color: Colors.lightGreen,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 20.0),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+              ),
+              onDismissed: (direction) {
+                _notificationController.dismissNotification(index);
               },
-            ),
-          ),
-        ],
+              child: Card(
+                child: ListTile(
+                  title: Text('Offer $index'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      _notificationController.deleteNotification(index);
+                    },
+                  ),
+                  onTap: () {
+                    print('Tapped on notification $index');
+                  },
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

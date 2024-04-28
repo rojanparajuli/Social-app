@@ -1,5 +1,6 @@
 import 'package:chatapp/screen/chat/chat_page.dart';
 import 'package:chatapp/screen/login/sign-up/login.dart';
+import 'package:chatapp/screen/notification/notification.dart';
 import 'package:chatapp/screen/profile/profile_screen.dart';
 import 'package:chatapp/screen/settings/settings.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
         actions: [
+           IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>  NotificationScreen()));
+          }, icon: const Icon(Icons.notifications, color: Colors.blue,)),
+
           IconButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const ChatInbox()));
-          }, icon: const Icon(Icons.message, color: Colors.blue,))
+          }, icon: const Icon(Icons.message, color: Colors.blue,)),
+         
         ],
         
       ),
