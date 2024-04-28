@@ -1,37 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:chatapp/Authentication/auth.dart';
 
 class SignupPage extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const SignupPage({Key? key});
+  final AuthService authService = Get.put(AuthService());
+
+   SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void signUp() async {
+      // Save a reference to ScaffoldMessengerState
+      final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+      try {
+        await authService.signUpWithEmailAndPassword(
+          authService.nameController.text,
+          authService.emailController.text,
+          authService.passwordController.text,
+        );
+        // Handle successful sign up
+      } catch (e) {
+        // Use the saved scaffoldMessenger to show SnackBar
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+    }
+
     return AlertDialog(
       title: const Text('Enter your details'),
-      content: const Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
-            decoration: InputDecoration(
+            controller: authService.nameController,
+            decoration: const InputDecoration(
               labelText: 'Full Name',
             ),
           ),
           TextField(
-            decoration: InputDecoration(
-              labelText: 'Mobile Number',
+            controller: authService.emailController,
+            decoration: const InputDecoration(
+              labelText: 'Email ',
             ),
             keyboardType: TextInputType.phone,
           ),
           TextField(
-            decoration: InputDecoration(
-              labelText: 'Email Address',
+            controller: authService.passwordController,
+            decoration: const InputDecoration(
+              labelText: 'Password',
             ),
             keyboardType: TextInputType.emailAddress,
           ),
           TextField(
-            decoration: InputDecoration(
-              labelText: 'Date of Birth',
+            controller: authService.confirmPassController,
+            decoration: const InputDecoration(
+              labelText: 'Confirm Password',
             ),
             keyboardType: TextInputType.datetime,
           ),
@@ -50,6 +77,7 @@ class SignupPage extends StatelessWidget {
           ),
           onPressed: () {
             // Do something with the user input
+            signUp();
             Get.back();
           },
           child: const Text('Submit'),

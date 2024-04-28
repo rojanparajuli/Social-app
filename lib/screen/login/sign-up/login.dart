@@ -15,27 +15,29 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Date Set Go'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/new logo.png'),
-            const SizedBox(
-              height: 150,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(const SignupPage());
-              },
-              child: const Text('Sign Up'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(const LoginDialog());
-              },
-              child: const Text("Login"),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/new logo.png'),
+              const SizedBox(
+                height: 150,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(()=> SignupPage());
+                },
+                child: const Text('Sign Up'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(()=> LoginDialog());
+                },
+                child: const Text("Login"),
+              ),
+            ],
+          ),
         ),
       ),
     );
