@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginDialog extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const LoginDialog({Key? key});
 
   @override
@@ -31,7 +30,7 @@ class LoginDialog extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
-              Get.to(()=> const ResetPasswordPage());
+              Get.to(() => const ResetPasswordPage());
             },
           ),
           Row(
@@ -39,16 +38,13 @@ class LoginDialog extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.to(()=> const HomePage());
-                    ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Logged in successfully! Welcome.',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.green, // Snackbar background color
-                      duration: Duration(seconds: 3), // Snackbar display duration
-                    ),
+                  Get.to(() => const HomePage());
+                  Get.snackbar(
+                    'Success',
+                    'Logged in successfully! Welcome.',
+                    // backgroundColor: Colors.green,
+                    colorText: Colors.black,
+                    duration: const Duration(seconds: 3),
                   );
                 },
                 child: const Text('Submit'),

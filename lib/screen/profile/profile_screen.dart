@@ -1,53 +1,98 @@
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Profile'),
+       actions: [
+         IconButton(
+            onPressed: () {
+             
+            },
+            icon: const Icon(Icons.edit),
+          ),
+       ],
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Center(
-              child: Image.asset('assets/prayash.jpg',
-            height: 300,
-            width: 300,
-          )),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            'NAME:Prayash Rimal',
-            style: TextStyle(
-                fontSize: 40, color: Colors.pink, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const Text('gender: Male', style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-          const SizedBox(
-            height: 5,
-          ),
-          const Text('Age:45', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-          const SizedBox(
-            height: 5,
-          ),
-          const Text('Address:Newyork, USA', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-          const SizedBox(
-            height: 200,
-          ),
-          const Text('DATE SET GO'),
-         
-        ],
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(90),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            CircleAvatar(
+              radius: 100,
+              backgroundImage: AssetImage('assets/prayash.jpg'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Prayash Rimal',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.pink,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Gender: Male',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Age: 45',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Address: New York, USA',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15), backgroundColor: Colors.pink,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(30),
+            //     ),
+            //   ),
+            //   child: const Text(
+            //     'DATE SET GO',
+            //     style: TextStyle(
+            //       fontSize: 18,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
 }
-
