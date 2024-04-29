@@ -1,6 +1,7 @@
 import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/controller/logout_controller.dart';
 import 'package:chatapp/screen/error/access_denied.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:chatapp/screen/about/about.dart';
@@ -8,6 +9,7 @@ import 'package:chatapp/screen/profile/profile_screen.dart';
 import 'package:chatapp/screen/settings/settings.dart';
 
 class DrawerScreen extends StatelessWidget {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
    DrawerScreen({Key? key});
 
   final LogoutController _logoutController = Get.put(LogoutController());
@@ -20,14 +22,14 @@ class DrawerScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => const Profile());
+              Get.to(() => Profile());
             },
             child:  UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: purple3,
               ),
-              accountName: const Text('Prayash Rimal'),
-              accountEmail: const Text('Home'),
+              accountName: Text(firebaseAuth.currentUser?.email ?? ''),
+              accountEmail: const Text(''),
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/prayash.jpg'),
               ),
@@ -44,7 +46,7 @@ class DrawerScreen extends StatelessWidget {
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
-              Get.to(() => const Profile());
+              Get.to(() =>  Profile());
             },
           ),
           ListTile(

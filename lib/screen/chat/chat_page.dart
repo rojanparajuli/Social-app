@@ -59,6 +59,7 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
+
 //display all users except current user
     if (firebaseAuth.currentUser!.email != data['email']) {
       return Padding(
@@ -66,8 +67,6 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
         child: Card(
           child: ListTile(
               title: Text(
-                
-             
                  data['name']??"hello",
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -76,17 +75,6 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 data['email']??""
                 ),
               onTap: () {
-                //pass th clicked user's UID to the chat page
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ChatPage(
-                //       receiverUserName: data['name'],
-                //       receiverUserEmail: data['email'],
-                //       receiverID: data['uid'],
-                //     ),
-                //   ),
-                // );
                 Get.to(()=>ChatPage(
                    name: data['name'],
                       email: data['email'],
