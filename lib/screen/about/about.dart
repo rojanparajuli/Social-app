@@ -1,4 +1,6 @@
+import 'package:chatapp/screen/error/access_denied.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AboutPageBody extends StatelessWidget {
   const AboutPageBody({Key? key}) : super(key: key);
@@ -65,7 +67,7 @@ class AboutPageBody extends StatelessWidget {
             const SizedBox(height: 30.0),
             ElevatedButton(
               onPressed: () {
-                // Action when the button is pressed
+               Get.to(()=>const AccessDeniedPage());
               },
               child: const Text(
                 'Join the ChatApp Community',

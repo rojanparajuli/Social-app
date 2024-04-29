@@ -1,3 +1,4 @@
+import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/controller/logout_controller.dart';
 import 'package:chatapp/screen/error/access_denied.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +15,20 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+     
       child: ListView(
         children: [
           GestureDetector(
             onTap: () {
               Get.to(() => const Profile());
             },
-            child: const UserAccountsDrawerHeader(
-              accountName: Text('Prayash Rimal'),
-              accountEmail: Text('Home'),
-              currentAccountPicture: CircleAvatar(
+            child:  UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: purple3,
+              ),
+              accountName: const Text('Prayash Rimal'),
+              accountEmail: const Text('Home'),
+              currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/prayash.jpg'),
               ),
             ),
@@ -40,6 +45,13 @@ class DrawerScreen extends StatelessWidget {
             leading: const Icon(Icons.person),
             onTap: () {
               Get.to(() => const Profile());
+            },
+          ),
+          ListTile(
+            title: const Text('Share Your Location'),
+            leading: const Icon(Icons.location_on),
+            onTap: () {
+              Get.to(() => const AccessDeniedPage ());
             },
           ),
            ListTile(
