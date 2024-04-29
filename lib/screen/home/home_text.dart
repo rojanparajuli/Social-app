@@ -5,7 +5,7 @@ class HomeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[100], // Set background color
+      backgroundColor: Colors.blueGrey[50], // Set background color
       body:  Center(
         child:  Padding(
           padding: const EdgeInsets.all(20.0),

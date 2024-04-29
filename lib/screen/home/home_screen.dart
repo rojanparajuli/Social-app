@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
            iconTheme: IconThemeData(
         color: purple3,
       ),
-          backgroundColor: Colors.blueGrey[100],
+          backgroundColor: Colors.blueGrey[50],
           actions: [
             IconButton(
               onPressed: () {
