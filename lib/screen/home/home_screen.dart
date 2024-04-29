@@ -1,3 +1,4 @@
+import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/screen/drawer/drawer.dart';
 import 'package:chatapp/screen/home/home_text.dart';
 import 'package:flutter/material.dart';
@@ -76,19 +77,22 @@ class HomePage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          // title: const Text('Home Page'),
+           iconTheme: IconThemeData(
+        color: purple3,
+      ),
+          backgroundColor: Colors.blueGrey[100],
           actions: [
             IconButton(
               onPressed: () {
                 Get.to(() => NotificationScreen());
               },
-              icon: const Icon(Icons.notifications, color: Colors.blue),
+              icon:  Icon(Icons.notifications, color: purple3),
             ),
             IconButton(
               onPressed: () {
                 Get.to(() => const ChatInbox());
               },
-              icon: const Icon(Icons.message, color: Colors.blue),
+              icon:  Icon(Icons.message, color:purple3),
             ),
           ],
         ),
