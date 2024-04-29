@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
+  
   const Profile({Key? key}) : super(key: key);
 
   @override
@@ -74,22 +75,6 @@ class Profile extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            // ElevatedButton(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15), backgroundColor: Colors.pink,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(30),
-            //     ),
-            //   ),
-            //   child: const Text(
-            //     'DATE SET GO',
-            //     style: TextStyle(
-            //       fontSize: 18,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

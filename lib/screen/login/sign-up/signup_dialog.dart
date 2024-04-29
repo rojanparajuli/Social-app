@@ -1,12 +1,13 @@
+import 'package:chatapp/controller/sign-up_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:chatapp/Authentication/auth.dart';
 
 class SignupPage extends StatelessWidget {
   final AuthService authService = Get.put(AuthService());
-   
+  final Signupcontroller signupcontroller = Get.put(Signupcontroller());
 
-   SignupPage({super.key});
+  SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,37 +36,59 @@ class SignupPage extends StatelessWidget {
 
     return AlertDialog(
       title: const Text('Enter your details'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          TextField(
-            controller:authService.nameController,
-            decoration: const InputDecoration(
-              labelText: 'Full Name',
+      content: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TextField(
+              controller: authService.nameController,
+              decoration: const InputDecoration(
+                labelText: 'Full Name',
+              ),
             ),
-          ),
-          TextField(
-            controller:authService.emailController,
-            decoration: const InputDecoration(
-              labelText: 'Email ',
+            TextField(
+              controller: authService.emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email ',
+              ),
+              keyboardType: TextInputType.emailAddress,
             ),
-            keyboardType: TextInputType.emailAddress,
-          ),
-          TextField(
-            controller:authService.passwordController,
-            decoration: const InputDecoration(
-              labelText: 'Password',
+            TextField(
+              obscureText: signupcontroller.obscureText.value,
+              controller: authService.passwordController,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                suffixIcon: IconButton(
+                  icon: Icon(signupcontroller.obscureText.value
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    signupcontroller.obscureText.value =
+                        !signupcontroller.obscureText.value;
+                  },
+                ),
+              ),
+              keyboardType: TextInputType.visiblePassword,
             ),
-            keyboardType: TextInputType.visiblePassword,
-          ),
-          TextField(
-            controller: authService.confirmPassController,
-            decoration: const InputDecoration(
-              labelText: 'Confirm Password',
+            TextField(
+              obscureText: signupcontroller.obscureText.value,
+              controller: authService.confirmPassController,
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
+                suffixIcon: IconButton(
+                  icon: Icon(signupcontroller.obscureText.value
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    signupcontroller.obscureText.value =
+                        !signupcontroller.obscureText.value;
+                  },
+                ),
+              ),
+              keyboardType: TextInputType.visiblePassword,
             ),
-            keyboardType: TextInputType.visiblePassword,
-          ),
-        ],
+          ],
+        ),
       ),
       actions: <Widget>[
         TextButton(
@@ -79,7 +102,7 @@ class SignupPage extends StatelessWidget {
             minimumSize: const Size(200, 30),
           ),
           onPressed: () {
-          authService.signUpWithEmailAndPassword();
+            authService.signUpWithEmailAndPassword();
             //Get.back();
           },
           child: const Text('Submit'),
