@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                Get.to(() => const ChatInbox());
+                Get.to(() =>  ChatInbox());
               },
               icon:  Icon(Icons.message, color:purple3),
             ),

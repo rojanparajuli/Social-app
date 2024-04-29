@@ -1,26 +1,12 @@
 import 'package:flutter/material.dart';
-
-class ChatApp extends StatelessWidget {
-   const ChatApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Chat App',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const ChatPage(),
-    );
-  }
-}
-
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+   ChatPage({required this.name, required this.email, required this.Id});
+
+final String  name;
+final String email;
+final String Id;
 
   @override
-  // ignore: library_private_types_in_public_api
   _ChatPageState createState() => _ChatPageState();
 }
 
@@ -40,7 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('prayash'),
+        title:  Text(widget.name),
         actions: [
           IconButton(
             icon: const Icon(Icons.video_call),

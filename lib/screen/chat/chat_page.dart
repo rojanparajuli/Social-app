@@ -1,13 +1,17 @@
 import 'package:chatapp/screen/chat/inbox.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 
 
 
 class ChatInbox extends StatelessWidget {
-  const ChatInbox({super.key});
-
+   ChatInbox({super.key});
+final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,40 +32,71 @@ class ChatInbox extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          GestureDetector(
-            onTap:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const ChatApp()));
-                  } ,
-            child: ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage('assets/profile.jpg'),
-              ),
-              title: const Text('Prayash Rimal'),
-              subtitle: const Text('pork ho?'),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.reply),
-                    onPressed: () {
-                      // Handle reply button pressed
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.favorite, color: Colors.pink,),
-                    onPressed: () {
-                      // Handle like button pressed
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Add more chat messages here
-        ],
-      ),
+      body: Container(
+      child: StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Container(child: const Text('error'));
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(child: const Text("Loading..."));
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(doc))
+              .toList(),
+        );
+      },
+    )
+      )
+       
     );
+  }
+  //build individual user list items
+
+  Widget _buildUserListItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+//display all users except current user
+    if (firebaseAuth.currentUser!.email != data['email']) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Card(
+          child: ListTile(
+              title: Text(
+                
+             
+                 data['name']??"hello",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+               
+                data['email']??""
+                ),
+              onTap: () {
+                //pass th clicked user's UID to the chat page
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ChatPage(
+                //       receiverUserName: data['name'],
+                //       receiverUserEmail: data['email'],
+                //       receiverID: data['uid'],
+                //     ),
+                //   ),
+                // );
+                Get.to(()=>ChatPage(
+                   name: data['name'],
+                      email: data['email'],
+                      Id: data['uid'],
+                ));
+              }),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }
