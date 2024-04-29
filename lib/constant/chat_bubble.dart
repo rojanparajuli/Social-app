@@ -5,7 +5,7 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final bool isMe;
 
-  const ChatBubble({super.key, required this.message, required this.isMe});
+  const ChatBubble({super.key, required this.message, required this.isMe, MaterialColor? ChatBubble});
 
   @override
   Widget build(BuildContext context) {

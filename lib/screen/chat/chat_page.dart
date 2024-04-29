@@ -21,15 +21,10 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
           IconButton(
             icon: const Icon(Icons.circle,color: Color.fromARGB(255, 1, 131, 5),),
             onPressed: () {
-              //online button pressed
+              
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.search_sharp),
-            onPressed: () {
-              // search button pressed
-            },
-          ),
+         
         ],
       ),
       body: Container(
@@ -54,13 +49,11 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
        
     );
   }
-  //build individual user list items
 
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
 
-//display all users except current user
     if (firebaseAuth.currentUser!.email != data['email']) {
       return Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -78,7 +71,7 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 Get.to(()=>ChatPage(
                    receiverUserName: data['name'],
                       receiverUserEmail: data['email'],
-                      receiverID: data['uid'],
+                      receiverID: data['uid'], unreadMessageCount: 0,
                 ));
               }),
         ),
