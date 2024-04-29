@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  
-  const Profile({Key? key}) : super(key: key);
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,60 +20,60 @@ class Profile extends StatelessWidget {
           ),
        ],
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(90),
+      body:  SingleChildScrollView(
+        padding: const EdgeInsets.all(90),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            CircleAvatar(
+            const CircleAvatar(
               radius: 100,
               backgroundImage: AssetImage('assets/prayash.jpg'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
-              'Prayash Rimal',
-              style: TextStyle(
+              firebaseAuth.currentUser!.email ?? '',
+              style: const TextStyle(
                 fontSize: 24,
                 color: Colors.pink,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Gender: Male',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Age: 45',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Address: New York, USA',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
           ],
