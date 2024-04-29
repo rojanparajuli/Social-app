@@ -76,9 +76,9 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 ),
               onTap: () {
                 Get.to(()=>ChatPage(
-                   name: data['name'],
-                      email: data['email'],
-                      Id: data['uid'],
+                   receiverUserName: data['name'],
+                      receiverUserEmail: data['email'],
+                      receiverID: data['uid'],
                 ));
               }),
         ),

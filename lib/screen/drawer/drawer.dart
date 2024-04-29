@@ -10,7 +10,7 @@ import 'package:chatapp/screen/settings/settings.dart';
 
 class DrawerScreen extends StatelessWidget {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-   DrawerScreen({Key? key});
+   DrawerScreen({super.key,});
 
   final LogoutController _logoutController = Get.put(LogoutController());
 

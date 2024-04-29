@@ -1,92 +1,166 @@
+import 'package:chatapp/constant/chat_bubble.dart';
+import 'package:chatapp/service/chat_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-class ChatPage extends StatefulWidget {
-   ChatPage({required this.name, required this.email, required this.Id});
+import 'package:intl/intl.dart';
 
-final String  name;
-final String email;
-final String Id;
+class ChatPage extends StatefulWidget {
+  final String receiverUserEmail;
+  final String receiverID;
+  final String receiverUserName;
+  const ChatPage(
+      {super.key,
+      required this.receiverUserEmail,
+      required this.receiverID,
+      required this.receiverUserName});
 
   @override
-  _ChatPageState createState() => _ChatPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<String> messages = [];
-
-  final TextEditingController _textEditingController = TextEditingController();
-
-  void _sendMessage(String message) {
-    setState(() {
-      messages.add(message);
-    });
-    _textEditingController.clear();
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  void sendMessage() async {
+    //only send messge when it is not khali
+    if (_messageController.text.isNotEmpty) {
+      await _chatService.sendMessage(
+          widget.receiverID, _messageController.text);
+    }
+    //clear text controller message send garepxi
+    _messageController.clear();
   }
+
+  //----------------\
+  bool isMe = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(widget.name),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.video_call),
-            onPressed: () {
-              // Handle video call action
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.phone),
-            onPressed: () {
-              // Handle voice call action
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () {
-              // Handle info  action
-            },
-          ),
-        ],
-      ),
+          title: Text(
+        widget.receiverUserName,
+      )),
       body: Column(
         children: [
+          //message
           Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(messages[index]),
-                );
-              },
-            ),
+            child: _buildMessageList(),
           ),
+          //user input
+          //textfield to type message------------------
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textEditingController,
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Row(
+                children: [
+                  Expanded(
+                      child: TextFormField(
+                    controller: _messageController,
                     decoration: const InputDecoration(
-                      hintText: 'Type a message',
+                      hintText: "Type a message...",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 165, 91, 177),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 165, 91, 177),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                 IconButton(
-                  icon: const Icon(Icons.favorite, color: Colors.pink,),
-                  onPressed: () {
-                  },
-                ),
-                 IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    _sendMessage(_textEditingController.text);
-                  },
-                ),
-              ],
+                  )),
+                  IconButton(
+                      onPressed: sendMessage,
+                      icon: const Icon(
+                        Icons.send,
+                        color: Colors.deepPurple,
+                        size: 30,
+                      ))
+                ],
+              ),
             ),
-          ),
+          )
         ],
+      ),
+    );
+  }
+
+  //bild message list
+  Widget _buildMessageList() {
+    return StreamBuilder(
+      stream: _chatService.getMessages(
+          widget.receiverID, _firebaseAuth.currentUser!.uid),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Error${snapshot.error}");
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+        if (!snapshot.hasData) {
+          return Text("No data");
+        } else {}
+        print("=============================");
+        print(snapshot.data);
+        print("Document Count: ${snapshot.data!.docs.length}");
+        return ListView(
+          children: snapshot.data!.docs
+              .map((document) => _buildMessageItem(document))
+              .toList(),
+        );
+        // Access the documents from the snapshot
+        //   final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
+
+        //   return ListView.builder(
+        //     itemCount: documents.length,
+        //     itemBuilder: (context, index) {
+        //       final document = documents[index];
+        //       return _buildMessageItem(document);
+        //     },
+        //   );
+      },
+    );
+  }
+
+  //build message item
+  Widget _buildMessageItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+    //align the messages to the right if the sender is current user, otherwise to the left
+    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
+        ? Alignment.centerRight
+        : Alignment.centerLeft;
+
+//to get the time
+    DateTime myDateTime = DateTime.parse(data['timestamp'].toDate().toString());
+    String formattedDateTime = DateFormat('h:mm a').format(myDateTime);
+    //set isme variable for chatbubble borrradius
+    isMe = (data['senderId'] == _firebaseAuth.currentUser!.uid) ? true : false;
+    return Container(
+      alignment: alignment,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+            crossAxisAlignment:
+                (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+            children: [
+              // Text("Message")
+              Text(
+                formattedDateTime.toString(),
+                style: TextStyle(color: Colors.black),
+              ),
+              ChatBubble(
+                isMe: isMe,
+                message: data['message'],
+              )
+            ]),
       ),
     );
   }

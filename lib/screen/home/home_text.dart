@@ -2,6 +2,8 @@ import 'package:chatapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeText extends StatelessWidget {
+  const HomeText({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -7,7 +7,7 @@ import 'package:chatapp/screen/notification/notification.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         drawer: DrawerScreen(),
-        body: HomeText(),
+        body: const HomeText(),
       ),
     );
   }

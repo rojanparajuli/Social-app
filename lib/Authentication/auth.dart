@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 class AuthService extends GetxController {
@@ -28,7 +27,7 @@ class AuthService extends GetxController {
         'password':  passwordController.text
       }, SetOptions(merge: true));
       print("callleeeeeed😒");
-      Get.to(()=>HomePage());
+      Get.to(()=>const HomePage());
       return userCredential;
       
     } on FirebaseAuthException catch (e) {
@@ -58,6 +57,7 @@ class AuthService extends GetxController {
       Get.snackbar('Success', 'Created');
      Navigator.pop(Get.context!);
     }
+    return null;
   }
 
   //sign out user
@@ -129,7 +129,6 @@ class AuthService extends GetxController {
 
   Future<void> signInWithGoogle() async {
         FirebaseAuth auth = FirebaseAuth.instance;
-        User? user;
   try {
     final GoogleSignInAccount? googleSignInAccount =
         await GoogleSignIn().signIn();
@@ -145,7 +144,6 @@ class AuthService extends GetxController {
 
          final UserCredential userCredential =
               await auth.signInWithCredential(credential);
-               user = userCredential.user;
     } else {
       // User canceled sign-in.
     }
