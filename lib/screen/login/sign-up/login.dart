@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(()=> const LoginDialog());
+                  Get.to(()=>  LoginDialog());
                 },
                 child: const Text("Login"),
               ),

@@ -3,22 +3,47 @@ import 'package:chatapp/screen/login/sign-up/password_reset_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginDialog extends StatelessWidget {
-  const LoginDialog({Key? key});
+import '../../../Authentication/auth.dart';
 
+class LoginDialog extends StatelessWidget {
+   LoginDialog({Key? key});
+
+ final AuthService authService = Get.put(AuthService());
   @override
   Widget build(BuildContext context) {
+    // void Login() async {
+    //   // Save a reference to ScaffoldMessengerState
+    //   final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    //   try {
+    //     await authService.signInWithEmailAndPassword(
+    //     a  emailController.text,
+         
+    //       passwordController.text
+    //     );
+    //     // Handle successful sign up
+    //   } catch (e) {
+    //     // Use the saved scaffoldMessenger to show SnackBar
+    //     scaffoldMessenger.showSnackBar(
+    //       SnackBar(
+    //         content: Text(e.toString()),
+    //       ),
+    //     );
+    //   }
+    // }
     return AlertDialog(
       title: const Text('Enter phone number and password'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const TextField(
+           TextField(
+            controller:authService.emailController,
             decoration: InputDecoration(
-              labelText: 'Phone number',
+              labelText: 'email',
             ),
           ),
-          const TextField(
+           TextField(
+            controller: authService.passwordController,
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'Password',
@@ -38,7 +63,7 @@ class LoginDialog extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.to(() => const HomePage());
+                 authService.signInWithEmailAndPassword();
                   Get.snackbar(
                     'Success',
                     'Logged in successfully! Welcome.',
