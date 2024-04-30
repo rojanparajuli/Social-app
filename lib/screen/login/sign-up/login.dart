@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
   final Logincontroller _logincontroller = Get.put(Logincontroller());
   final Savinglogin savinglogin = Get.put(Savinglogin());
 
+  // ignore: use_key_in_widget_constructors
   LoginPage({Key? key});
 
   @override
