@@ -1,4 +1,5 @@
 import 'package:chatapp/screen/home/home_screen.dart';
+import 'package:chatapp/service/save_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class AuthService extends GetxController {
   final TextEditingController emailController  =TextEditingController();
   final TextEditingController confirmPassController =TextEditingController();
   final TextEditingController passwordController  =TextEditingController();
+   final Savinglogin savinglogin = Get.put(Savinglogin());
   Future<UserCredential?> signInWithEmailAndPassword(
       ) async {
     try {
@@ -30,7 +32,7 @@ class AuthService extends GetxController {
         'password':  passwordController.text
       }, SetOptions(merge: true));
       print("callleeeeeed😒");
-      // saveLogin();
+      savinglogin.saveLogin();
       Get.to(()=> HomePage());
       return userCredential;
       

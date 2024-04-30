@@ -1,8 +1,10 @@
 import 'package:chatapp/constant/chat_bubble.dart';
+import 'package:chatapp/screen/profile/profile_screen.dart';
 import 'package:chatapp/service/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
@@ -42,9 +44,14 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        widget.receiverUserName,
-      )),
+          title: GestureDetector(
+           onTap: () {
+              Get.to(()=>Profile());
+           },
+            child: Text(
+                    widget.receiverUserName,
+                  ),
+          )),
       body: Column(
         children: [
           

@@ -13,7 +13,7 @@ class ChatBubble extends StatelessWidget {
       padding: const EdgeInsets.all(13),
       margin: const EdgeInsets.only(bottom: 9),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 171, 113, 181),
+        color: isMe ? Colors.purpleAccent : Colors.white,
         //color: data['uid'] == currentUser!.uid ? redColor : darkFontGrey,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(20),
@@ -33,7 +33,7 @@ class ChatBubble extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
           message,
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(color: isMe ? Colors.white : Colors.black, fontSize: 16),
         ),
       ]),
     );
