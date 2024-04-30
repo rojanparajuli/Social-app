@@ -154,7 +154,7 @@ class AuthService extends GetxController {
       // User canceled sign-in.
     }
   } catch (error) {
-    print('Google Sign-In error: $error');
+    print('Google Sign-In errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: $error');
   }
 }
 }

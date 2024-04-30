@@ -1,4 +1,5 @@
 import 'package:chatapp/screen/login/sign-up/login.dart';
+import 'package:chatapp/screen/splashscreen/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       
-      home: LoginPage()
+      home: const SplashScreen()
     );
   }
 }
