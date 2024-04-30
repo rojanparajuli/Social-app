@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
           final bool isLoggedIn = snapshot.data ?? false;
           if (isLoggedIn) {
             
-            return const HomePage(); 
+            return HomePage(); 
           } else {
             
             return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/controller/logout_controller.dart';
 import 'package:chatapp/screen/error/access_denied.dart';
+import 'package:chatapp/service/save_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class DrawerScreen extends StatelessWidget {
    DrawerScreen({super.key,});
 
   final LogoutController _logoutController = Get.put(LogoutController());
+   final Savinglogin savinglogin = Get.put(Savinglogin());
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,9 @@ class DrawerScreen extends StatelessWidget {
             TextButton(
               child: const Text("Yes"),
               onPressed: () {
+                savinglogin.signOut();
                 _logoutController.logout();
+                
               },
             ),
           ],

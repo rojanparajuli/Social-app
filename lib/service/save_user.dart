@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Savinglogin {
+class Savinglogin extends GetxController{
   // SharedPreferences keys
   static const String isLoggedInKey = 'isLoggedIn';
   static const String userEmailKey = 'userEmail';
@@ -9,7 +10,7 @@ class Savinglogin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<void> signInWithEmailAndPassword() async {
+  Future<void> saveLogin() async {
     
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(isLoggedInKey, true);

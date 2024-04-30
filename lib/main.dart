@@ -25,8 +25,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       
-      home:  LoginPage()
+      home: LoginPage()
     );
   }
 }
+
+
+// class OnBoard extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//   return Obx(() {
+//     return LoginPage();
+//   });
+//   }
+
+// }
 

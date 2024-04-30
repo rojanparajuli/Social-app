@@ -4,9 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthService extends GetxController {
+    static const String isLoggedInKey = 'isLoggedIn';
+  static const String userEmailKey = 'userEmail';
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
  final TextEditingController nameController =TextEditingController();
@@ -27,7 +30,8 @@ class AuthService extends GetxController {
         'password':  passwordController.text
       }, SetOptions(merge: true));
       print("callleeeeeed😒");
-      Get.to(()=>const HomePage());
+      // saveLogin();
+      Get.to(()=> HomePage());
       return userCredential;
       
     } on FirebaseAuthException catch (e) {
