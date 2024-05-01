@@ -3,7 +3,6 @@ import 'package:chatapp/screen/drawer/drawer.dart';
 import 'package:chatapp/screen/home/home_text.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/screen/chat/chat_page.dart';
-import 'package:chatapp/screen/notification/notification.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
