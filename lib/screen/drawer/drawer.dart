@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:chatapp/screen/about/about.dart';
 import 'package:chatapp/screen/profile/profile_screen.dart';
-import 'package:chatapp/screen/settings/settings.dart';
 
 class DrawerScreen extends StatelessWidget {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -41,7 +40,7 @@ class DrawerScreen extends StatelessWidget {
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-              Get.to(() =>  SettingPage());
+              Get.to(() => const AccessDeniedPage ());
             },
           ),
           ListTile(

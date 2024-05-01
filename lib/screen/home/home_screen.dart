@@ -84,12 +84,6 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Get.to(() => NotificationScreen());
-              },
-              icon:  Icon(Icons.notifications, color: purple3),
-            ),
-            IconButton(
-              onPressed: () {
                 Get.to(() =>  ChatInbox());
               },
               icon:  Icon(Icons.message, color:purple3),
