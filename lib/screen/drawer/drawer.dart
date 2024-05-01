@@ -1,6 +1,7 @@
 import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/controller/logout_controller.dart';
 import 'package:chatapp/screen/error/access_denied.dart';
+import 'package:chatapp/screen/sharelocation/share_location.dart';
 import 'package:chatapp/service/save_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class DrawerScreen extends StatelessWidget {
             title: const Text('Share Your Location'),
             leading: const Icon(Icons.location_on),
             onTap: () {
-              Get.to(() => const AccessDeniedPage ());
+              Get.to(() =>  LocationSharingPage());
             },
           ),
            ListTile(
