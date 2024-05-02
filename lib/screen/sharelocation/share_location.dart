@@ -13,7 +13,6 @@ class LocationSharingPage extends StatelessWidget {
         title: const Text('Location Sharing'),
       ),
       body: Obx(() {
-        // ignore: unnecessary_null_comparison
         return controller.currentPosition.value != null
             ? GoogleMap(
                 onMapCreated: (GoogleMapController controller) {},
@@ -40,8 +39,13 @@ class LocationSharingPage extends StatelessWidget {
               );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.getCurrentLocation();
+        
+        onPressed: ()async {
+          print("hello");
+        await  controller.getCurrentLocation();
+         
+               controller.getAdressFromCoordinates();
+
         },
         tooltip: 'Get Location',
         child: const Icon(Icons.location_searching),
