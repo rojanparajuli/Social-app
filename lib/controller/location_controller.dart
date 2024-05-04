@@ -22,7 +22,10 @@ class LocationController extends GetxController {
     super.onInit();
     getCurrentLocation();
   }
-  var _isGettingLocation = false;
+
+
+  var isGettingLocation = false;
+
   Position? currentLocation;
   late bool servicePermission = false;
   late LocationPermission permission;
@@ -44,7 +47,7 @@ class LocationController extends GetxController {
         longitude: longitude,
         address: currentAddress,
       );
-      _isGettingLocation = false;
+      isGettingLocation = false;
     } catch (e) {
       print("Error in savePlace: $e");
     }
@@ -58,7 +61,7 @@ class LocationController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-    _isGettingLocation = true;
+    isGettingLocation = true;
     print("Here");
     currentLocation = await Geolocator.getCurrentPosition();
     return currentLocation;
