@@ -9,24 +9,28 @@ import 'package:get/get.dart';
 import 'package:chatapp/screen/about/about.dart';
 import 'package:chatapp/screen/profile/profile_screen.dart';
 
+import '../../controller/location_controller.dart';
+
 class DrawerScreen extends StatelessWidget {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-   DrawerScreen({super.key,});
+  final LocationController controller = Get.put(LocationController());
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DrawerScreen({
+    super.key,
+  });
 
   final LogoutController _logoutController = Get.put(LogoutController());
-   final Savinglogin savinglogin = Get.put(Savinglogin());
+  final Savinglogin savinglogin = Get.put(Savinglogin());
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-     
       child: ListView(
         children: [
           GestureDetector(
             onTap: () {
               Get.to(() => Profile());
             },
-            child:  UserAccountsDrawerHeader(
+            child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: purple3,
               ),
@@ -41,27 +45,31 @@ class DrawerScreen extends StatelessWidget {
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-              Get.to(() => const AccessDeniedPage ());
+              Get.to(() => const AccessDeniedPage());
             },
           ),
           ListTile(
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
-              Get.to(() =>  Profile());
+              Get.to(() => Profile());
             },
           ),
           ListTile(
             title: const Text('Share Your Location'),
             leading: const Icon(Icons.location_on),
-            onTap: () {
-              Get.to(() =>  LocationSharingPage());
+            onTap: () async {
+              print("hello in settings");
+              await controller.getCurrentLocation();
+
+              controller.getAdressFromCoordinates();
+              Get.to(() => LocationSharingPage());
             },
           ),
-           ListTile(
+          ListTile(
             title: const Text('Report'),
             leading: const Icon(Icons.report),
-             onTap: () {
+            onTap: () {
               Get.to(() => const AccessDeniedPage());
             },
           ),
@@ -103,7 +111,6 @@ class DrawerScreen extends StatelessWidget {
               onPressed: () {
                 savinglogin.signOut();
                 _logoutController.logout();
-                
               },
             ),
           ],
