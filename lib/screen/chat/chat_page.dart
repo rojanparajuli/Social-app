@@ -16,7 +16,7 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Message'),
+        title: const Text('Messages'),
         actions: [
           IconButton(
             icon: const Icon(Icons.circle,color: Color.fromARGB(255, 1, 131, 5),),

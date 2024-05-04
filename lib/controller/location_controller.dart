@@ -23,11 +23,13 @@ class LocationController extends GetxController {
     getCurrentLocation();
   }
 
+
   var isGettingLocation = false;
+
   Position? currentLocation;
   late bool servicePermission = false;
   late LocationPermission permission;
-  String currentAddress = "ktm";
+  String currentAddress = "";
   bool locationSelected = false;
   PlaceLocation? pickedLocation;
   Future<void> savePlace(double latitude, double longitude) async {
@@ -50,7 +52,6 @@ class LocationController extends GetxController {
       print("Error in savePlace: $e");
     }
   }
-
   Future<Position?> getCurrentLocation() async {
     servicePermission = await Geolocator.isLocationServiceEnabled();
     if (!servicePermission) {
@@ -65,7 +66,6 @@ class LocationController extends GetxController {
     currentLocation = await Geolocator.getCurrentPosition();
     return currentLocation;
   }
-
   getAdressFromCoordinates() async {
     print('lll');
     try {

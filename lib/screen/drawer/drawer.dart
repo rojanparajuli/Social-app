@@ -58,12 +58,15 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             title: const Text('Share Your Location'),
             leading: const Icon(Icons.location_on),
+
             onTap: () async {
               print("hello in settings");
               await controller.getCurrentLocation();
 
               controller.getAdressFromCoordinates();
               Get.to(() => LocationSharingPage());
+
+
             },
           ),
           ListTile(
