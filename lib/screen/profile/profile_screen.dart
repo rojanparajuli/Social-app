@@ -28,68 +28,25 @@ class Profile extends StatelessWidget {
             Container(
               color: Colors.purple,
               padding: const EdgeInsets.all(20),
-              child: const Center(
+              height: 120,
+            ),
+             const Center(
                 child: CircleAvatar(
                   radius: 60,
                   backgroundImage: AssetImage('assets/prayash.jpg'),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
+            
             _buildProfileInfoCard(
               context,
-              title: 'Email',
-              value: firebaseAuth.currentUser!.email ?? '',
-            ),
-            _buildProfileInfoCard(
-              context,
-              title: 'Gender',
-              value: 'Male',
-            ),
-            _buildProfileInfoCard(
-              context,
-              title: 'Age',
-              value: '45',
-            ),
-            _buildProfileInfoCard(
-              context,
-              title: 'Address',
-              value: 'New York, USA',
-            ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'User Details',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text('Email: ${firebaseAuth.currentUser!.email ?? ''}'),
-                          const SizedBox(height: 10),
-                          const Text('Gender: Male'),
-                          const SizedBox(height: 10),
-                          const Text('Age: 45'),
-                          const SizedBox(height: 10),
-                          const Text('Address: New York, USA'),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              child: const Text('Show Details'),
+              title: ' ',
+              value: '''
+                Name : ${firebaseAuth.currentUser!.displayName ?? ''}
+                Email: ${firebaseAuth.currentUser!.email ?? ''}
+                Gender: Male
+                Age: 45
+                Address: New York, USA
+              ''',
             ),
           ],
         ),
