@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverID;
   final String receiverUserName;
   final int unreadMessageCount;
 
-  const ChatPage({
+   const ChatPage({
     super.key,
     required this.receiverUserEmail,
     required this.receiverID,
@@ -21,15 +22,18 @@ class ChatPage extends StatefulWidget {
     required this.unreadMessageCount,
   });
 
-
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+    // final ScrollController _scrollController = ScrollController();
   final TextEditingController _messageController = TextEditingController();
+
   final ChatService _chatService = ChatService();
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
@@ -122,7 +126,6 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
