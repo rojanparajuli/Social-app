@@ -14,7 +14,7 @@ class ChatPage extends StatefulWidget {
   final String receiverUserName;
   final int unreadMessageCount;
 
-   const ChatPage({
+  const ChatPage({
     super.key,
     required this.receiverUserEmail,
     required this.receiverID,
@@ -27,12 +27,28 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-    // final ScrollController _scrollController = ScrollController();
+  // final ScrollController _scrollController = ScrollController();
   final TextEditingController _messageController = TextEditingController();
 
   final ChatService _chatService = ChatService();
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final ScrollController _scrollController = ScrollController();
+  @override
+  void dispose() {
+    // Step 2: Dispose the ScrollController
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  // Step 3: Add a method to scroll to the bottom
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
@@ -40,6 +56,10 @@ class _ChatPageState extends State<ChatPage> {
           widget.receiverID, _messageController.text);
     }
     _messageController.clear();
+    // Scroll to the bottom after a new message is sent and UI updates
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _scrollToBottom();
+    });
   }
 
   bool isMe = true;
@@ -49,6 +69,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
           title: GestureDetector(
+
            onTap: () {
               Get.to(()=>Profile());
            },
@@ -58,12 +79,11 @@ class _ChatPageState extends State<ChatPage> {
           )),
       body :
        Column(
+
         children: [
-          
           Expanded(
             child: _buildMessageList(),
           ),
-         
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -119,6 +139,7 @@ class _ChatPageState extends State<ChatPage> {
         print(snapshot.data);
         print("Document Count: ${snapshot.data!.docs.length}");
         return ListView(
+          controller: _scrollController,
           children: snapshot.data!.docs
               .map((document) => _buildMessageItem(document))
               .toList(),
@@ -160,4 +181,3 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
-
