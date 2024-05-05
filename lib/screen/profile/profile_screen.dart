@@ -1,70 +1,65 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+import '../../service/profile_service.dart';
 
-  Profile({Key? key}) : super(key: key);
+class Profile extends StatelessWidget {
+   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    User? currentUser = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
+        elevation: 30,
+        backgroundColor: Color.fromARGB(249, 50, 218, 184),
         centerTitle: true,
         title: const Text('Profile'),
         actions: [
           IconButton(
             onPressed: () {
-              // Handle edit button press
             },
             icon: const Icon(Icons.edit),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
             Container(
-              color: Colors.purple,
+              height: MediaQuery.of(context).size.height / 1.10,
+              color: Colors.transparent,
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/profileheader.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                color: Colors.white,
+              ),
               padding: const EdgeInsets.all(20),
               height: 120,
             ),
-             const Center(
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage('assets/prayash.jpg'),
-                ),
-              ),
-            
-            _buildProfileInfoCard(
-              context,
-              title: ' ',
-              value: '''
-                Name : ${firebaseAuth.currentUser!.displayName ?? ''}
-                Email: ${firebaseAuth.currentUser!.email ?? ''}
-                Gender: Male
-                Age: 45
-                Address: New York, USA
-              ''',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileInfoCard(BuildContext context, {required String title, required String value}) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Padding(
+            Positioned(
+              left: 50,
+              top: 160,
+              child: _buildProfileInfoCard(
+               
+                child:  StreamBuilder(stream: FirestoreServices.getUser(currentUser!.uid), 
+                builder:(BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot){
+                  var data = snapshot.data!.docs[0];
+                  return            Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //Container(child: Image.network(data['Bluetick']),),
             Text(
-              title,
+              "",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -73,7 +68,7 @@ class Profile extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              value,
+              "kdjdj",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[800],
@@ -81,7 +76,34 @@ class Profile extends StatelessWidget {
             ),
           ],
         ),
+      );
+                } )
+                
+    
+              )
+            ),
+            Positioned(
+              top: 42,
+              left: MediaQuery.of(context).size.width / 2.7,
+              child: const Center(
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage('assets/prayash.jpg'),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildProfileInfoCard(
+      { final child}) {
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child:child
     );
   }
 }
