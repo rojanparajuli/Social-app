@@ -1,4 +1,3 @@
-import 'package:chatapp/constant/colors.dart';
 import 'package:chatapp/controller/logout_controller.dart';
 import 'package:chatapp/screen/error/access_denied.dart';
 import 'package:chatapp/screen/sharelocation/share_location.dart';
@@ -32,7 +31,11 @@ class DrawerScreen extends StatelessWidget {
             },
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: purple3,
+                color: Colors.purple[300],
+                image: const DecorationImage(
+                  image: AssetImage("assets/drawer.jpg"),
+                  fit: BoxFit.cover,
+                ),
               ),
               accountName: Text(firebaseAuth.currentUser?.email ?? ''),
               accountEmail: const Text(''),
@@ -58,15 +61,12 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             title: const Text('Share Your Location'),
             leading: const Icon(Icons.location_on),
-
             onTap: () async {
               print("hello in settings");
               await controller.getCurrentLocation();
 
               controller.getAdressFromCoordinates();
               Get.to(() => LocationSharingPage());
-
-
             },
           ),
           ListTile(

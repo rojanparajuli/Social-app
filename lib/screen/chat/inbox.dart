@@ -56,7 +56,8 @@ class _ChatPageState extends State<ChatPage> {
                     widget.receiverUserName,
                   ),
           )),
-      body: Column(
+      body :
+       Column(
         children: [
           
           Expanded(
