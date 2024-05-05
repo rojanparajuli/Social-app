@@ -45,19 +45,20 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Settings'),
-            leading: const Icon(Icons.settings),
-            onTap: () {
-              Get.to(() => const AccessDeniedPage());
-            },
-          ),
-          ListTile(
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
               Get.to(() => Profile());
             },
           ),
+          ListTile(
+            title: const Text('Settings'),
+            leading: const Icon(Icons.settings),
+            onTap: () {
+              Get.to(() => const AccessDeniedPage());
+            },
+          ),
+          
           ListTile(
             title: const Text('Share Your Location'),
             leading: const Icon(Icons.location_on),
