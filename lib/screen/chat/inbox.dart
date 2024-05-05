@@ -69,14 +69,17 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
           title: GestureDetector(
-        onTap: () {
-          Get.to(() => Profile());
-        },
-        child: Text(
-          widget.receiverUserName,
-        ),
-      )),
-      body: Column(
+
+           onTap: () {
+              Get.to(()=>Profile());
+           },
+            child: Text(
+                    widget.receiverUserName,
+                  ),
+          )),
+      body :
+       Column(
+
         children: [
           Expanded(
             child: _buildMessageList(),
