@@ -31,9 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.white, Colors.purple],
+            colors: [Colors.white, Colors.orange[300]!],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-                  Image.asset('assets/new logo.png', scale:3 ,)               
+                  Image.asset('assets/new logo(1).png', scale:4 ,)               
           ],
         ),
       ),
