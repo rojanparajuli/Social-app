@@ -1,4 +1,5 @@
 import 'package:chatapp/screen/home/home_screen.dart';
+import 'package:chatapp/screen/login/sign-up/signup_dialog.dart';
 import 'package:chatapp/service/save_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -140,28 +141,40 @@ class LoginPage extends StatelessWidget {
                             ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
-                                    Colors.orange.shade300),
+                                    Colors.green),
                               ),
                               onPressed: () async {
                                 try {
                                   await authService
                                       .signInWithEmailAndPassword();
-                                  Get.snackbar(
-                                    'Success',
-                                    'Logged in successfully! Welcome.',
-                                    colorText: Colors.black,
-                                    duration: const Duration(seconds: 3),
-                                  );
+                                  Get.snackbar('Success',
+                                      'Logged in successfully! Welcome.',
+                                      colorText: Colors.black,
+                                      duration: const Duration(seconds: 3),
+                                      backgroundColor: Colors.orange.shade300);
                                 } catch (e) {
-                                  Get.snackbar(
-                                    'Error',
-                                    e.toString(),
-                                    colorText: Colors.black,
-                                    duration: const Duration(seconds: 3),
-                                  );
+                                  Get.snackbar('Error', e.toString(),
+                                      colorText: Colors.black,
+                                      duration: const Duration(seconds: 3),
+                                      backgroundColor: Colors.red);
                                 }
                               },
-                              child: const Text('Submit',
+                              child: const Text('Login',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white)),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all<Color>(
+                                    Colors.orange.shade300),
+                              ),
+                              onPressed: () async {
+                                Get.to(() => SignupPage());
+                              },
+                              child: const Text('Sign Up',
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white)),
                             ),
@@ -169,9 +182,10 @@ class LoginPage extends StatelessWidget {
                               height: 15,
                             ),
                             const Text('Or',
-                                  style: TextStyle(
-                                      fontSize: 15, )),
-                                      const SizedBox(
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            const SizedBox(
                               height: 15,
                             ),
                             GestureDetector(
@@ -188,8 +202,14 @@ class LoginPage extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   const Text('Continue With Google',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.black, decoration: TextDecoration.underline)),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          decoration: TextDecoration.underline,
+                                          fontFamily: 'EBGaramond',
+                                          fontWeight: FontWeight.bold,
+                                          wordSpacing:
+                                              BorderSide.strokeAlignCenter)),
                                 ],
                               ),
                             )
@@ -217,7 +237,7 @@ class LoginPage extends StatelessWidget {
             height: 250,
             width: 250,
             decoration: BoxDecoration(
-              color: Colors.orange.shade300,
+              color: Colors.green.shade300,
               shape: BoxShape.circle,
             ),
           ),
