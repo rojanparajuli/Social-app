@@ -1,9 +1,7 @@
-import 'package:chatapp/screen/login/sign-up/login.dart';
 import 'package:chatapp/screen/splashscreen/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:sampleflutter/view/login/sign-up/login.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
