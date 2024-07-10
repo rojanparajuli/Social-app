@@ -94,9 +94,6 @@ class LoginPage extends StatelessWidget {
               },
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                // appBar: AppBar(
-                //   title: const Center(child: Text('Login')),
-                // ),
                 body: Form(
                   child: Stack(
                     children: [
