@@ -7,17 +7,16 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService extends GetxController {
-    static const String isLoggedInKey = 'isLoggedIn';
+  static const String isLoggedInKey = 'isLoggedIn';
   static const String userEmailKey = 'userEmail';
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
- final TextEditingController nameController =TextEditingController();
-  final TextEditingController emailController  =TextEditingController();
-  final TextEditingController confirmPassController =TextEditingController();
-  final TextEditingController passwordController  =TextEditingController();
-   final Savinglogin savinglogin = Get.put(Savinglogin());
-  Future<UserCredential?> signInWithEmailAndPassword(
-      ) async {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final Savinglogin savinglogin = Get.put(Savinglogin());
+  Future<UserCredential?> signInWithEmailAndPassword() async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.signInWithEmailAndPassword(
@@ -26,25 +25,23 @@ class AuthService extends GetxController {
       );
       _fireStore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
-        'email':  emailController.text,
-        'password':  passwordController.text
+        'email': emailController.text,
+        'password': passwordController.text
       }, SetOptions(merge: true));
       print("callleeeeeed");
       savinglogin.saveLogin();
-      Get.to(()=> Dashboard());
+      Get.to(() => Dashboard());
       return userCredential;
-      
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
   }
 
-  Future<UserCredential?> signUpWithEmailAndPassword(
-      ) async {
+  Future<UserCredential?> signUpWithEmailAndPassword() async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
-        email:  emailController.text,
+        email: emailController.text,
         password: passwordController.text,
       );
       _fireStore.collection('users').doc(userCredential.user!.uid).set({
@@ -56,40 +53,25 @@ class AuthService extends GetxController {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       print(e);
-
     } finally {
       Get.snackbar('Success', 'Created');
-     Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
     }
     return null;
   }
 
- 
   Future<void> signOut() async {
     return await FirebaseAuth.instance.signOut();
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   Future<void> signInWithGoogle() async {
-        FirebaseAuth auth = FirebaseAuth.instance;
-  try {
-    final GoogleSignInAccount? googleSignInAccount =
-        await GoogleSignIn().signIn();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await GoogleSignIn().signIn();
 
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
@@ -97,13 +79,12 @@ class AuthService extends GetxController {
           idToken: googleSignInAuthentication.idToken,
         );
 
-         final UserCredential userCredential =
-              await auth.signInWithCredential(credential);
-    } else {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+      } else {}
+    } catch (error) {
+      print(
+          'Google Sign-In errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: $error');
     }
-  } catch (error) {
-    print('Google Sign-In errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: $error');
   }
 }
-}
-

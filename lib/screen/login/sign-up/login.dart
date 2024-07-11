@@ -189,25 +189,34 @@ class LoginPage extends StatelessWidget {
                               onTap: () {
                                 authService.signInWithGoogle();
                               },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    'assets/google_logo.png',
-                                    height: 24,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Text('Continue With Google',
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 24.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/google_logo.png',
+                                      height: 24,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'Continue With Google',
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.black,
-                                          decoration: TextDecoration.underline,
-                                          fontFamily: 'EBGaramond',
-                                          fontWeight: FontWeight.bold,
-                                          wordSpacing:
-                                              BorderSide.strokeAlignCenter)),
-                                ],
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                        fontFamily: 'EBGaramond',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
