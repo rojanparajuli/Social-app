@@ -190,7 +190,7 @@ class LoginPage extends StatelessWidget {
                                 authService.signInWithGoogle();
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 16.0, horizontal: 24.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),

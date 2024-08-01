@@ -11,28 +11,6 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // void signUp() async {
-    //   // Save a reference to ScaffoldMessengerState
-    //   final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-    //   // try {
-    //     await authService.signUpWithEmailAndPassword(
-    //       nameController.text,
-    //       emailController.text,
-    //       passwordController.text,
-    //     );
-    //     print("😒");
-    //     print(emailController.text);
-    //     // Handle successful sign up
-    //   // } catch (e) {
-    //   //   // Use the saved scaffoldMessenger to show SnackBar
-    //   //   scaffoldMessenger.showSnackBar(
-    //   //     SnackBar(
-    //   //       content: Text(e.toString()),
-    //   //     ),
-    //   //   );
-    //   // }
-    // }
 
     return AlertDialog(
       title: const Text('Enter your details'),
