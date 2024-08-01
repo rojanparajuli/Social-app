@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../service/profile_service.dart';
 
+// ignore: must_be_immutable
 class Profile extends StatelessWidget {
    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
@@ -15,7 +16,7 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 30,
-        backgroundColor: Color.fromARGB(249, 50, 218, 184),
+        backgroundColor: const Color.fromARGB(249, 50, 218, 184),
         centerTitle: true,
         title: const Text('Profile'),
         actions: [
@@ -51,6 +52,7 @@ class Profile extends StatelessWidget {
                
                 child:  StreamBuilder(stream: FirestoreServices.getUser(currentUser!.uid), 
                 builder:(BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot){
+                  // ignore: unused_local_variable
                   var data = snapshot.data!.docs[0];
                   return            Padding(
         padding: const EdgeInsets.all(20),

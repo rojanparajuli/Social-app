@@ -57,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
     }
     _messageController.clear();
     // Scroll to the bottom after a new message is sent and UI updates
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToBottom();
     });
   }

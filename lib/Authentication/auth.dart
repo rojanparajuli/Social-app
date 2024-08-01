@@ -79,6 +79,7 @@ class AuthService extends GetxController {
           idToken: googleSignInAuthentication.idToken,
         );
 
+        // ignore: unused_local_variable
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
       } else {}
